@@ -70,5 +70,3 @@ def login_page():
         <button type="submit"> Login! </button>
     </form>
     """)
-
-print(login_page())

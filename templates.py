@@ -77,7 +77,7 @@ def after_login_incorrect():
 
     <p> Incorrect username or password (hint: <span class="spoilers"> Check
         <code>secret.py</code>!</span>)
-    <p> <a href="get_data_from_form.py"> Try again. </a>
+    <p> <a href="login.py"> Try again. </a>
     """)
 
 

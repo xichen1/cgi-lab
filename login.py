@@ -8,6 +8,8 @@ except:
 import secret, os
 from http.cookies import SimpleCookie
 from templates import secret_page, after_login_incorrect
+from get_data_from_form import login_page
+
 
 def after_login_correct():
     print("Set-Cookie: username=" + secret.username + ";")
@@ -21,22 +23,26 @@ def after_login_correct():
     print("</body>")
     print("</html>")
 
+def login():
+
+    if(username == secret.username and password == secret.password):
+        after_login_correct()
+                
+    else:
+        print("Content-type:text/html\r\n\r\n")
+        print(after_login_incorrect())
 
 form = cgi.FieldStorage()
-
 username = form.getvalue('username')
 password = form.getvalue('password')
-
 cookie = SimpleCookie(os.environ.get("HTTP_COOKIE"))
-if(cookie.get("username") and cookie.get("password") and 
-cookie.get("username").value == secret.username and cookie.get("password").value == secret.password):
-        print("Content-type:text/html\r\n\r\n")
-        print(secret_page(cookie.get("username").value, cookie.get("password").value))
 
-elif(username == secret.username and password == secret.password):
-    after_login_correct()
-            
+if(cookie.get("username") and cookie.get("password") and 
+    cookie.get("username").value == secret.username and cookie.get("password").value == secret.password):
+            print("Content-type:text/html\r\n\r\n")
+            print(secret_page(cookie.get("username").value, cookie.get("password").value))
+elif(not username or not password):
+    print(login_page())
 else:
-    print("Content-type:text/html\r\n\r\n")
-    print(after_login_incorrect())
+    login()
 
