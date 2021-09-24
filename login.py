@@ -12,7 +12,7 @@ from get_data_from_form import login_page
 
 
 def after_login_correct():
-    print("Set-Cookie: username=" + secret.username + ";")
+    print("Set-Cookie: username=" + secret.username)
     print("Set-Cookie: password=" + secret.password)
     print("Content-type:text/html\r\n\r\n")
     print("<html>")
@@ -41,7 +41,7 @@ if(cookie.get("username") and cookie.get("password") and
     cookie.get("username").value == secret.username and cookie.get("password").value == secret.password):
             print("Content-type:text/html\r\n\r\n")
             print(secret_page(cookie.get("username").value, cookie.get("password").value))
-elif(not username or not password):
+elif(not username and not password):
     print(login_page())
 else:
     login()
